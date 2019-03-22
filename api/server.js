@@ -4,7 +4,8 @@ require("dotenv").config({ path: "./.env" });
 const app = require("./app");
 //This uses Express!
 
-// Is the following still necessary?
+// To seed run "npm run seed"
+// Open connection to database
 
 const mongoose = require("mongoose");
 const mongopath = process.env.MONGOPATH || `localhost`;
@@ -15,12 +16,10 @@ mongoose.connect(`mongodb://${mongopath}:27017/DCI6jsonwebtoken`, {
   useCreateIndex: true
 });
 
-// To seed run "npm run seed"
-
 const baseRoutes = require("./routes/index");
 const apiRoutes = require("./routes/authentication");
 app.use(baseRoutes);
-const validateToken = require("./helpers/validateToken");
+const validateToken = require("./middlewares/validateToken");
 apiRoutes.use(validateToken);
 const privateRoutes = require("./routes/private");
 apiRoutes.use(privateRoutes);
