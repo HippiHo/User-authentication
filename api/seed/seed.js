@@ -38,4 +38,6 @@ const User = require("../models/User");
     await user.save();
     console.log("User saved successfully");
   }
+
+  mongoose.connection.close();
 })();
